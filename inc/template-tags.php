@@ -62,6 +62,27 @@ function startertheme_paging_nav() {
 }
 endif;
 
+/**
+ * Whether the Planning Help sidebar should display on the current page.
+ *
+ * @param int|null $post_id Optional page ID.
+ * @return bool
+ */
+function homemade_circus_show_planning_sidebar( $post_id = null ) {
+	$post_id = $post_id ? (int) $post_id : get_the_ID();
+
+	if ( ! $post_id || 'page' !== get_post_type( $post_id ) ) {
+		return false;
+	}
+
+	if ( get_field( 'show_planning_sidebar', $post_id ) ) {
+		return true;
+	}
+
+	// Legacy default for the Planning Your Workshop section.
+	return 258 === $post_id || in_array( 258, get_post_ancestors( $post_id ), true );
+}
+
 if ( ! function_exists( 'startertheme_post_nav' ) ) :
 /**
  * Display navigation to next/previous post when applicable.

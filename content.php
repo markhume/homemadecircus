@@ -302,7 +302,7 @@
 			</div>
 
 			<div class="row">
-			<?php if ( is_singular( 'activity' ) ||  is_page( 'welcome' ) ||  258 == $post->post_parent   ) : ?>
+			<?php if ( is_singular( 'activity' ) || is_page( 'welcome' ) || homemade_circus_show_planning_sidebar() ) : ?>
 				<div class="col-12 col-lg-8 col-xl-9">	
 			<?php else: ?>
 				<div class="col-12">
@@ -466,7 +466,7 @@
 					</div>	
 				<?php } ?>	
 
-				<?php if ( 258 == $post->post_parent ) { ?>
+				<?php if ( homemade_circus_show_planning_sidebar() ) { ?>
 				<div class="col-12 col-lg-4 col-xl-3">
 						<div class="side-content">
 

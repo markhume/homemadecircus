@@ -9,6 +9,14 @@
   ],
   "creatorBuild" : "34903",
   "files" : {
+    "\/.gitignore" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/.gitignore",
+      "oF" : 0
+    },
     "\/404.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1435,6 +1443,14 @@
       "oAP" : "\/content.php.bak",
       "oF" : 0
     },
+    "\/database\/homemade-circus.sql" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/database\/homemade-circus.sql",
+      "oF" : 0
+    },
     "\/footer.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1482,6 +1498,25 @@
       "oA" : 2,
       "oAP" : "\/page-templates\/page-template.php",
       "oF" : 0
+    },
+    "\/README.md" : {
+      "cB" : 0,
+      "cS" : 0,
+      "eF" : 1,
+      "eL" : 1,
+      "ema" : 1,
+      "eSQ" : 1,
+      "ft" : 4096,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/README.html",
+      "oF" : 0,
+      "oFM" : 0,
+      "oS" : 0,
+      "pHT" : 0,
+      "pME" : 1,
+      "rFN" : 0,
+      "uCM" : 0
     },
     "\/screenshot.png" : {
       "ft" : 32768,

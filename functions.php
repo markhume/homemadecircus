@@ -243,3 +243,46 @@ function tg_include_custom_post_types_in_archive_pages( $query ) {
     }
 }
 add_action( 'pre_get_posts', 'tg_include_custom_post_types_in_archive_pages' );
+
+/**
+ * Register ACF field groups.
+ */
+function homemade_circus_register_acf_field_groups() {
+	if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+		return;
+	}
+
+	acf_add_local_field_group(
+		array(
+			'key'                   => 'group_homemade_circus_page_sidebar',
+			'title'                 => 'Page Sidebar',
+			'fields'                => array(
+				array(
+					'key'           => 'field_show_planning_sidebar',
+					'label'         => 'Show Planning Help sidebar',
+					'name'          => 'show_planning_sidebar',
+					'type'          => 'true_false',
+					'instructions'  => 'Show the Planning Help sidebar on this page. It also appears automatically on the Planning Your Workshop section (page 258) and its subpages.',
+					'default_value' => 0,
+					'ui'            => 1,
+				),
+			),
+			'location'              => array(
+				array(
+					array(
+						'param'    => 'post_type',
+						'operator' => '==',
+						'value'    => 'page',
+					),
+				),
+			),
+			'menu_order'            => 0,
+			'position'              => 'side',
+			'style'                 => 'default',
+			'label_placement'       => 'top',
+			'instruction_placement' => 'label',
+			'active'                => true,
+		)
+	);
+}
+add_action( 'acf/init', 'homemade_circus_register_acf_field_groups' );
