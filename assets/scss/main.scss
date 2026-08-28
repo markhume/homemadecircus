@@ -918,20 +918,18 @@ ul.side_info {
     }
     .side-workshop-links {
         margin-bottom: 40px;
-        background: #d7d7d7;
-        border-radius: 15px;
-        padding: 20px 0 10px 0;
         li{
+            margin-bottom: 5px;
             margin-bottom: 15px;
         }
         a{
             @include btn;
-            background: none;
-            color: #000000;
-            font-size: 1rem;
+            background: #000;
+            color: #fff;
+            font-size: .9rem;
             text-transform: none;
             white-space: nowrap;
-            padding: 27px;
+            padding: 12px 27px 10px 27px;
         }
     }
  

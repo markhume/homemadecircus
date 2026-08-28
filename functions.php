@@ -262,7 +262,7 @@ function homemade_circus_register_acf_field_groups() {
 					'label'         => 'Show Planning Help sidebar',
 					'name'          => 'show_planning_sidebar',
 					'type'          => 'true_false',
-					'instructions'  => 'Show the Planning Help sidebar on this page. It also appears automatically on the Planning Your Workshop section (page 258) and its subpages.',
+					'instructions'  => 'Show the Planning Help sidebar on this page. It also appears automatically on Planning Your Workshop subpages (not the parent page itself).',
 					'default_value' => 0,
 					'ui'            => 1,
 				),
