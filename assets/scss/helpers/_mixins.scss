@@ -1,0 +1,51 @@
+/*
+  This mixin can be used to set the object-fit:
+  @include object-fit(contain);
+  or object-fit and object-position:
+  @include object-fit(cover, top);
+*/
+@mixin object-fit($fit: fill, $position: null){
+  -o-object-fit: $fit;
+     object-fit: $fit;
+  @if $position {
+	  -o-object-position: $position;
+	     object-position: $position;
+  	font-family: 'object-fit: #{$fit}; object-position: #{$position}';
+  } @else {
+  	font-family: 'object-fit: #{$fit}';
+  }
+}
+
+// generic transform
+@mixin transform($transforms) {
+    -moz-transform: $transforms;
+    -o-transform: $transforms;
+    -ms-transform: $transforms;
+	-webkit-transform: $transforms;
+    transform: $transforms;
+}
+// rotate
+@mixin rotate ($deg) {
+    @include transform(rotate(#{$deg}deg));
+}
+ 
+// scale
+@mixin scale($scale) {
+    @include transform(scale($scale));
+} 
+// translate
+@mixin translate ($x, $y) {
+    @include transform(translate($x, $y));
+}
+// skew
+@mixin skew ($x, $y) {
+    @include transform(skew(#{$x}deg, #{$y}deg));
+}
+//transform origin
+@mixin transform-origin ($origin) {
+    moz-transform-origin: $origin;
+    -o-transform-origin: $origin;
+    -ms-transform-origin: $origin;
+    -webkit-transform-origin: $origin;
+    transform-origin: $origin;
+}

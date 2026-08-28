@@ -1,0 +1,503 @@
+<?php
+/**
+ * The default template for displaying content
+ *
+ * Used for both single and index/archive/search.
+ *
+ * @package WordPress
+ * @subpackage Starter_Theme
+ * @since Starter Theme 1.0
+ */
+?>
+
+
+<?php if ( is_front_page() ) : ?>
+	
+	<section class="row posrel sectionone">
+		
+		<div class="wordone">
+			<div class="bigword"><?php the_field('large_word_one'); ?></div>
+			<div class="wordcaption wordonecaption"><p><?php the_field('large_word_one_caption'); ?></p></div>
+		</div>
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+		<div class="col-12 col-lg-5 offset-lg-7">
+			<div class="swiper swiperone">
+				<div class="swiper-button-next"></div>
+				<div class="pause"></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-wrapper">
+					<?php 
+						$images = get_field('slideshow');
+						$size = 'full'; // (thumbnail, medium, large, full or custom size)
+						if( $images ): ?>
+							
+								<?php foreach( $images as $image_id ): ?>
+									<div class="swiper-slide">
+										<?php echo wp_get_attachment_image( $image_id, $size ); ?>
+									</div>
+								<?php endforeach; ?>
+						
+						<?php endif; 
+					?>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+		<script>
+			var swiper = new Swiper(".swiperone", {
+				autoplay: {
+					delay: 2000,
+					disableOnInteraction: false
+				},
+				effect: 'fade',
+				loop: true,
+				navigation: {
+					nextEl: ".swiper-button-next",
+					prevEl: ".swiper-button-prev",
+				},
+			});
+			$(".pause").click(function(){
+				swiper.autoplay.stop();
+			});
+		</script>
+
+	</section>
+
+	<section class="row posrel sectiontwo">
+		
+		<div class="col-12 col-lg-6">
+			<div class="video-container">
+				<?php the_field('video'); ?>
+			</div> 
+			<!-- <div class="image-temp">
+				< ?php 
+					$image = get_field('temp_image');
+					$size = 'full'; // (thumbnail, medium, large, full or custom size)
+					if( $image ) {
+						echo wp_get_attachment_image( $image, $size );
+					}
+				?>
+			</div> -->
+		</div>
+
+		<div class="col-12 col-lg-5 offset-lg-1">
+			<div class="wordtwo">
+				<div class="bigword"><?php the_field('large_word_two'); ?></div>
+				<div class="wordcaption wordtwocaption"><p><?php the_field('large_word_two_caption'); ?></p></div>
+			</div>
+		</div>
+
+	</section>
+
+	<section class="row sectionthree">
+		
+		<div class="col-12 col-lg-5 sectionthree-col1">
+			
+			<div class="wordthree">
+				<div class="bigword"><?php the_field('large_word_three'); ?></div>
+				<div class="wordcaption wordthreecaption"><p><?php the_field('large_word_three_caption'); ?></p></div>
+			</div>
+
+			<div class="testimonials">
+			<div class="btn title"><h2>Testimonials</h2></div>
+				<div class="testimonials-swiper-buttons">
+					<div class="swiper-button-next"></div>
+					<div class="pause"></div>
+					<div class="swiper-button-prev"></div>
+				</div>
+				<div class="box testimonials">
+					<?php if( have_rows('testimonials') ): ?>
+						<div class="swiper swipertwo">
+							<div class="swiper-wrapper">
+								<?php while( have_rows('testimonials') ): the_row(); ?>
+									<div class="swiper-slide">
+										<div class="words"><?php the_sub_field('testimonial'); ?></div>
+										<div class="person">- <?php the_sub_field('name'); ?></div>
+									</div>
+								<?php endwhile; ?>
+							</div>
+						</div>	
+					<?php endif; ?>
+				</div>
+			</div>
+			<script>
+				var swiper = new Swiper(".swipertwo", {
+					loop: true,
+					autoplay: {
+						delay: 10000,
+					},
+					navigation: {
+						nextEl: ".swiper-button-next",
+						prevEl: ".swiper-button-prev",
+					},
+				});
+				$(".pause").click(function(){
+						swiper.autoplay.stop();
+					});
+			</script>
+			<div class="contact" id="contact">
+				<div class="btn title"><h2>Contact</h2></div>
+				<div class="box">
+					<?php the_field('contact'); ?>	
+					<div class="socials">
+								<ul>
+									<li>
+										<a target="blank" href="https://twitter.com/upswingaerial">
+											<svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M18 3.99347C17.3377 4.28747 16.626 4.48547 15.879 4.57472C16.6418 4.11797 17.2275 3.39422 17.5028 2.53172C16.7895 2.95472 15.999 3.26222 15.1575 3.42797C14.4847 2.71022 13.524 2.26172 12.462 2.26172C10.0777 2.26172 8.32575 4.48622 8.86425 6.79547C5.796 6.64172 3.075 5.17172 1.25325 2.93747C0.28575 4.59722 0.7515 6.76847 2.3955 7.86797C1.791 7.84847 1.221 7.68272 0.72375 7.40597C0.68325 9.11672 1.9095 10.7172 3.6855 11.0735C3.16575 11.2145 2.5965 11.2475 2.0175 11.1365C2.487 12.6035 3.8505 13.6707 5.4675 13.7007C3.915 14.918 1.959 15.4617 0 15.2307C1.63425 16.2785 3.576 16.8897 5.661 16.8897C12.5175 16.8897 16.3912 11.099 16.1572 5.90522C16.8787 5.38397 17.505 4.73372 18 3.99347Z" fill="black"/>
+											</svg>
+										</a>
+									</li>
+									<li>
+										<a target="blank" href="https://www.youtube.com/channel/UCf-nA3jV8Gw7l6T4HpDRvLA">
+											<svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M14.7113 0.707196C12.0082 0.529532 5.988 0.530254 3.28875 0.707196C0.366 0.899305 0.02175 2.59939 0 7.07422C0.02175 11.5411 0.363 13.2484 3.28875 13.4412C5.98875 13.6182 12.0082 13.6189 14.7113 13.4412C17.634 13.2491 17.9783 11.549 18 7.07422C17.9783 2.60734 17.637 0.900027 14.7113 0.707196ZM6.75 9.96307V4.18537L12.75 7.06916L6.75 9.96307Z" fill="black"/>
+											</svg>
+										</a>
+									</li>
+									<li>
+										<a target="blank" href="https://www.instagram.com/upswingaerial">
+										<svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<g clip-path="url(#clip0_864_644)">
+												<path d="M9 2.19647C11.403 2.19647 11.688 2.20547 12.6375 2.24897C15.0765 2.35997 16.2157 3.51722 16.3267 5.93822C16.3702 6.88697 16.3785 7.17197 16.3785 9.57497C16.3785 11.9787 16.3695 12.263 16.3267 13.2117C16.215 15.6305 15.0788 16.79 12.6375 16.901C11.688 16.9445 11.4045 16.9535 9 16.9535C6.597 16.9535 6.312 16.9445 5.36325 16.901C2.91825 16.7892 1.785 15.6267 1.674 13.211C1.6305 12.2622 1.6215 11.978 1.6215 9.57422C1.6215 7.17122 1.63125 6.88697 1.674 5.93747C1.78575 3.51722 2.922 2.35922 5.36325 2.24822C6.31275 2.20547 6.597 2.19647 9 2.19647ZM9 0.574219C6.55575 0.574219 6.24975 0.584719 5.28975 0.628219C2.02125 0.778219 0.20475 2.59172 0.05475 5.86322C0.0105 6.82397 0 7.12997 0 9.57422C0 12.0185 0.0105 12.3252 0.054 13.2852C0.204 16.5537 2.0175 18.3702 5.289 18.5202C6.24975 18.5637 6.55575 18.5742 9 18.5742C11.4443 18.5742 11.751 18.5637 12.711 18.5202C15.9765 18.3702 17.7975 16.5567 17.9452 13.2852C17.9895 12.3252 18 12.0185 18 9.57422C18 7.12997 17.9895 6.82397 17.946 5.86397C17.799 2.59847 15.9832 0.778969 12.7118 0.628969C11.751 0.584719 11.4443 0.574219 9 0.574219ZM9 4.95272C6.44775 4.95272 4.3785 7.02197 4.3785 9.57422C4.3785 12.1265 6.44775 14.1965 9 14.1965C11.5522 14.1965 13.6215 12.1272 13.6215 9.57422C13.6215 7.02197 11.5522 4.95272 9 4.95272ZM9 12.5742C7.34325 12.5742 6 11.2317 6 9.57422C6 7.91747 7.34325 6.57422 9 6.57422C10.6567 6.57422 12 7.91747 12 9.57422C12 11.2317 10.6567 12.5742 9 12.5742ZM13.8045 3.69047C13.2075 3.69047 12.7238 4.17422 12.7238 4.77047C12.7238 5.36672 13.2075 5.85047 13.8045 5.85047C14.4008 5.85047 14.8837 5.36672 14.8837 4.77047C14.8837 4.17422 14.4008 3.69047 13.8045 3.69047Z" fill="black"/>
+											</g>
+												<defs>
+													<clipPath id="clip0_864_644">
+														<rect width="18" height="18" fill="white" transform="translate(0 0.574219)"/>
+													</clipPath>
+												</defs>
+											</svg>
+										</a>
+									</li>
+									<li>
+										<a target="blank" href="https://www.facebook.com/upswing.aerialarts">
+											<svg width="9" height="17" viewBox="0 0 9 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M2.76466 6.05538H0.823486V8.64361H2.76466V16.4083H5.99996V8.64361H8.35654L8.58819 6.05538H5.99996V4.97673C5.99996 4.35879 6.12419 4.1142 6.72143 4.1142H8.58819V0.878906H6.12419C3.79737 0.878906 2.76466 1.9032 2.76466 3.86508V6.05538Z" fill="black"/>
+											</svg>
+										</a>
+									</li>
+								</ul>
+							</div>
+				</div>
+			</div>
+		</div>
+
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  		<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+		<script>
+			$( function() {
+
+				$(window).resize(function() {
+					
+					if($(window).width() >= 1024) {
+						$( "#tabs" ).tabs();
+					} else {
+						$('.element').hide();
+					}
+				}).resize(); 
+
+			} );
+		</script>
+		<div class="col-12 col-lg-6 offset-lg-1 sectionthree-col2" id="about">
+			<div id="tabs">
+				<ul>
+					<li><a class="about-tab" href="#tabs-1">About</a></li>
+					<li><a class="pricing-tab" href="#tabs-2">Get Access</a></li>
+				</ul>
+				<div class="box" id="tabs-1">
+					<span class="intro-text"><?php the_field('about_opening_paragraph'); ?></span>
+					<?php the_field('about'); ?>				
+				</div>
+				<h2 class="pricing-title">Get Access</h2>
+				<div class="box" id="tabs-2">
+					<?php the_field('pricing'); ?>				
+				</div>
+			</div>
+			<div class="final-image">
+				<?php 
+					$image = get_field('final_image');
+					$size = 'full'; // (thumbnail, medium, large, full or custom size)
+					if( $image ) {
+						echo wp_get_attachment_image( $image, $size );
+					}
+				?>
+			</div>
+		</div>
+
+	</section>
+
+	<script>
+	$( document ).ready(function() {
+
+		$(document).on('click', 'nav a[href^="#"]', function(e) {
+			// target element id
+			var id = $(this).attr('href');
+
+			// target element
+			var $id = $(id);
+			if ($id.length === 0) {
+				return;
+			}
+
+			// prevent standard hash navigation (avoid blinking in IE)
+			e.preventDefault();
+
+			// top position relative to the document
+			var pos = $id.offset().top;
+
+			// animated top scrolling
+			$('body, html').animate({scrollTop: pos});
+		});
+
+	});
+	</script>
+
+
+<?php else: ?>
+
+
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+	<div class="row sidenav">
+
+		<div class="col-12 col-lg-3 col-xl-2 sidecolnav" id="activities">
+			<?php if(current_user_can('mepr-active','rules:137')): ?> 
+
+				<?php $loop = new WP_Query( array( 'post_type' => 'activity', 'posts_per_page' => -1, 'orderby'=> 'title', 'order' => 'ASC'  ) ); ?>
+					<h2 class="activity-title">Activities</h2>
+					<ul class="sidebar">
+					<li><a href="/activities" class="btn" title="All Activities" rel="bookmark">Show all</a></li>
+
+					<?php 
+					
+							while ( $loop->have_posts() ) : $loop->the_post(); 
+								the_title( '<li><a href="' . get_permalink() . '" class="btn" title="' . the_title_attribute( 'echo=0' ) . '" rel="bookmark">', '</a></li>' ); 
+							endwhile;
+
+							wp_reset_postdata(); 
+						
+					?>
+					</ul>
+				
+				<h2 class="help-title">Help and Info</h2>
+				<?php wp_nav_menu( array( 'theme_location' => 'help-info' ) ); ?>
+
+			<?php endif; ?>
+		</div>
+
+		
+
+		<div class="col-12 col-lg-9 col-xl-10  box">
+			
+			<div class="row">
+				<header class="entry-header">
+					<div class="col-12">
+						<h1 class="entry-title"><?php the_title(); ?></h1>
+					</div>
+				</header>
+				<?php if ( is_page( 'faqs' ) ) { ?>
+					<a href="/plans/membership-options/" class="btn">Sign up with a donation</a>
+				<?php } ?>
+			</div>
+
+			<div class="row">
+			<?php if ( is_singular( 'activity' ) ||  is_page( 'welcome' ) ||  258 == $post->post_parent   ) : ?>
+				<div class="col-12 col-lg-8 col-xl-9">	
+			<?php else: ?>
+				<div class="col-12">
+				<?php endif; ?>
+										
+					<div class="entry-content">
+						<?php
+							the_content();
+						?>
+					</div>
+				</div>
+
+				<?php if ( is_page( 'welcome' ) ) { ?>
+					<div class="col-12 col-lg-4 col-xl-3">
+							<div class="side-content">
+							<?php the_field('side_bar_notes'); ?>
+							<h3>Tags</h3>
+							<?php
+								$tags = get_tags();
+								$html = '<div class="post_tags">';
+								foreach ( $tags as $tag ) {
+									$tag_link = get_tag_link( $tag->term_id );
+
+									$html .= "<a href='{$tag_link}' title='{$tag->name} Tag' class='{$tag->slug}'>";
+									$html .= "{$tag->name}</a>";
+								}
+								$html .= '</div>';
+								echo $html;
+							?>
+							</div>
+					</div>
+				<?php } ?>
+
+				<?php if ( is_page( 'activities' ) ) { ?>
+				
+				<?php $loop = new WP_Query( array( 'post_type' => 'activity', 'posts_per_page' => -1, 'orderby'=> 'title', 'order' => 'ASC'  ) ); ?>
+					<ul class="tagpage-list row">
+						<?php 
+								
+								while ( $loop->have_posts() ) : $loop->the_post(); ?>
+									<li class="col-12 col-lg-4">
+										<a href="<?php the_permalink(); ?>">
+											<?php 
+												$image = get_field('image');
+												$size = 'full'; // (thumbnail, medium, large, full or custom size)
+												if( $image ) {
+													echo wp_get_attachment_image( $image, $size );
+												}
+											?>
+											<div class="tagitemtitle"><?php the_title(); ?></div>
+										</a>
+										</li>
+								<?php 
+								endwhile;
+								wp_reset_postdata(); 	
+						?>
+					</ul>
+				<?php } ?>
+
+
+				<?php if ( is_page( 'faqs' ) ) { ?>
+					<div class="col-12 ">
+								<div class="accordion_container">
+
+									<?php if( have_rows('faq') ): ?>
+
+										<?php while( have_rows('faq') ): the_row(); ?>         
+											<div class="faqbox">
+												<div class="accordion_head"><div class="plusminus">+</div> <h2><?php the_sub_field('question'); ?></h2> </div>
+												<div class="accordion_body" style="display: none;"><?php the_sub_field('answer'); ?> </div>
+											</div> 
+										<?php endwhile; ?>
+
+									<?php endif; ?>
+
+								</div>
+					</div>
+				<?php } ?>
+
+				<script>
+					$( document ).ready(function() {
+						$(".accordion_head").click(function() {
+							if ($('.accordion_body').is(':visible')) {
+								$(".accordion_body").slideUp(300);
+								$(".plusminus").text('+');
+							}
+							if ($(this).next(".accordion_body").is(':visible')) {
+								$(this).next(".accordion_body").slideUp(500);
+								$(this).children(".plusminus").text('+');
+							} else {
+								$(this).next(".accordion_body").slideDown(300);
+								$(this).children(".plusminus").text('-');
+							}
+						});
+					});
+				</script>
+
+
+
+				<?php if ( is_singular( 'activity' ) ) { ?>
+					<div class="col-12 col-lg-4 col-xl-3">
+						<div class="side-content">
+
+							<div class="side-info">
+
+								<?php if( have_rows('side_info') ): ?>
+									<ul class="side_info">
+										<?php while( have_rows('side_info') ): the_row(); ?>
+											<li>
+												<?php the_sub_field('side_info'); ?>
+											</li>
+										<?php endwhile; ?>
+									</ul>
+								<?php endif; ?>
+
+							</div>
+
+							<?php
+									$tag_list = get_the_tag_list( '<ul><li>', '</li><li>', '</li></ul>' );
+									if ( $tag_list && ! is_wp_error( $tag_list ) ) { ?>
+									
+									<h3>Tags</h3>
+
+									<div class="tags">
+										<?php echo $tag_list; ?>
+									</div>
+
+							<?php } ?>
+
+							<?php if( have_rows('download') ): ?>
+								
+								<h3>Useful Links</h3>
+								<div class="download">
+										<ul class="download">
+											<?php while( have_rows('download') ): the_row(); ?>
+												<li>
+													<a href="<?php the_sub_field('download_file'); ?>" target="blank"><?php the_sub_field('download_title'); ?></a>
+												</li>
+											<?php endwhile; ?>
+										</ul>
+								</div>
+
+							<?php endif; ?>	
+
+							<?php if( have_rows('links') ): ?>
+								<div class="links">
+										<ul class="links">
+											<?php while( have_rows('links') ): the_row(); ?>
+												<li>
+													<a href="<?php the_sub_field('link_url'); ?>"><?php the_sub_field('link_title'); ?></a>
+												</li>
+											<?php endwhile; ?>
+										</ul>
+								</div>
+							<?php endif; ?>
+						
+							<?php echo do_shortcode('[ratemypost]'); ?>
+						
+						</div>
+
+					</div>	
+				<?php } ?>	
+
+				<?php if ( 258 == $post->post_parent ) { ?>
+				<div class="col-12 col-lg-4 col-xl-3">
+						<div class="side-content">
+
+							<h2>Planning Help</h2>
+							<?php wp_nav_menu( array( 'theme_location' => 'planning-workshop', 'menu_class'=> 'side-workshop-links' ) ); ?>
+
+							<?php if( have_rows('useful_links', 'option') ): ?>
+								<h2>Useful Links</h2>
+								<div>
+										<ul class="side-workshop-links">
+											<?php while( have_rows('useful_links', 'option') ): the_row(); ?>
+												<li>
+													<a href="<?php the_sub_field('link_url'); ?>" target="blank"><?php the_sub_field('link_title'); ?></a>
+												</li>
+											<?php endwhile; ?>
+										</ul>
+								</div>
+							<?php endif; ?>
+
+						</div>	
+				</div>		
+				<?php } ?>	
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+</article> 
+
+<?php endif; ?>
+
